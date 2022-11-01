@@ -1,5 +1,7 @@
 main = do
   let prompt = [ColoredText Magenta username,
+                Text "@",
+                ColoredText Orange hostname,
                 Text " in ",
                 ColoredText Green fullPWD,
                 Text "\\$([[ -n \\$(git branch 2> /dev/null) ]] && echo \\\" on \\\")",
@@ -27,5 +29,6 @@ generate (Text s) = s
 generate (ColoredText c e) = "\\[$" ++ (show c) ++ "\\]" ++ generate e ++ "\\[$RESET\\]"
 
 username = Text "\\u"
+hostname = Text "\\$(uname -n)"
 fullPWD = Text "\\w"
 newline = Text "\\n"
