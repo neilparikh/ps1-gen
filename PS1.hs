@@ -4,7 +4,7 @@ main = do
                 ColoredText Orange hostname,
                 Text " in ",
                 ColoredText Green fullPWD,
-                Text "\\$([[ -n \\$(git branch 2> /dev/null) ]] && echo \\\" on \\\")",
+                conditional "[[ -n \\$(git branch 2> /dev/null) ]]" " on ",
                 ColoredText Purple (Text "\\$(parse_git_branch)"),
                 newline,
                 Text "\\$ "
@@ -32,3 +32,4 @@ username = Text "\\u"
 hostname = Text "\\$(uname -n)"
 fullPWD = Text "\\w"
 newline = Text "\\n"
+conditional cond txt = Text $ "\\$(" ++ cond ++ " && echo \\\"" ++ txt ++ "\\\")"
